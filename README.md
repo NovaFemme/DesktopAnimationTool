@@ -8,6 +8,7 @@ A versatile desktop animation tool with multiple effects: 3D flip/ripple tile an
 
 ```
 desktop_animation_tool/
+|── animate.py            # Standalone run script
 ├── __init__.py           # Package initialization
 ├── config.py             # Configuration and constants
 ├── main.py               # Main application class and entry point
@@ -23,7 +24,6 @@ desktop_animation_tool/
     ├── eyes.py           # Eye detection and animation
     └── hidden.py         # Object hiding/inpainting
 
-run_animation.py          # Standalone run script
 ```
 
 ## Features
@@ -66,29 +66,29 @@ sudo apt install rocm-smi
 
 ```bash
 # Using the modular package:
-python3 run_animation.py -c -e flip      # Flip effect
-python3 run_animation.py -c -e ripple    # Ripple effect  
+python3 animate.py-c -e flip      # Flip effect
+python3 animate.py-c -e ripple    # Ripple effect  
 
 # Eyes effect - first time (select and save):
-python3 run_animation.py -c -e eyes --select-eyes
+python3 animate.py-c -e eyes --select-eyes
 
 # Eyes effect - subsequent runs (uses saved config):
-python3 run_animation.py -c -e eyes
+python3 animate.py-c -e eyes
 
 # Hidden effect - first time (select and save):
-python3 run_animation.py -c -e hidden --select-objects
+python3 animate.py-c -e hidden --select-objects
 
 # Hidden effect - subsequent runs:
-python3 run_animation.py -c -e hidden
+python3 animate.py-c -e hidden
 
 # Clone effect - first time:
-python3 run_animation.py -c -e clone --select-objects
+python3 animate.py-c -e clone --select-objects
 
 # Clone effect - subsequent runs:
-python3 run_animation.py -c -e clone
+python3 animate.py-c -e clone
 
 # Desktop mode with auto-restart every 5 seconds
-python3 run_animation.py -c -d -r 5 -e eyes
+python3 animate.py-c -d -r 5 -e eyes
 ```
 
 ## Saved Configurations
@@ -123,40 +123,40 @@ This allows you to select regions once and reuse them on subsequent runs.
 
 ```bash
 # Simple fullscreen with your wallpaper (wave pattern)
-python3 desktop_flip_puzzle.py -c
+python3 animate.py-c
 
 # Ripple pattern (concentric circles)
-python3 desktop_flip_puzzle.py -c -e ripple
+python3 animate.py-c -e ripple
 
 # Eyes effect with auto-detection
-python3 desktop_flip_puzzle.py -c -e eyes
+python3 animate.py-c -e eyes
 
 # Eyes effect with interactive polygon selection (recommended!)
-python3 desktop_flip_puzzle.py -c -e eyes --select-eyes
+python3 animate.py-c -e eyes --select-eyes
 
 # Hidden effect - remove objects like watches, jewelry
-python3 desktop_flip_puzzle.py -c -e hidden
+python3 animate.py-c -e hidden
 
 # Clone effect - replace areas with content from another region
-python3 desktop_flip_puzzle.py -c -e clone
+python3 animate.py-c -e clone
 
 # Reverse animation (original to scrambled)
-python3 desktop_flip_puzzle.py -c --reverse
+python3 animate.py-c --reverse
 
 # Desktop mode (runs behind your windows on X11)
-python3 desktop_flip_puzzle.py -c -d
+python3 animate.py-c -d
 
 # Auto-restart every 3 seconds (great for desktop mode)
-python3 desktop_flip_puzzle.py -c -d -r 3
+python3 animate.py-c -d -r 3
 
 # With system stats display
-python3 desktop_flip_puzzle.py -c -u -r 5
+python3 animate.py-c -u -r 5
 
 # Windowed mode for testing
-python3 desktop_flip_puzzle.py -c -w
+python3 animate.py-c -w
 
 # Maximum chill: large tiles, slow animation, long pause
-python3 desktop_flip_puzzle.py -c -s 150 --speed 4 -r 10
+python3 animate.py-c -s 150 --speed 4 -r 10
 ```
 
 ## Eyes Effect
@@ -165,7 +165,7 @@ The eyes effect detects faces and eyes in the captured image, then animates them
 
 **First time - Select and save eye regions:**
 ```bash
-python3 desktop_flip_puzzle.py -c -e eyes --select-eyes
+python3 animate.py-c -e eyes --select-eyes
 ```
 This opens an interactive tool where you can:
 - **Left click** to add polygon points around each eye
@@ -178,14 +178,14 @@ Your selections are saved to `~/.config/desktop_animation_tool/eyes.cfg`
 
 **Subsequent runs - Use saved config:**
 ```bash
-python3 desktop_flip_puzzle.py -c -e eyes
+python3 animate.py-c -e eyes
 ```
 This loads the previously saved eye regions automatically.
 
 **Manual eye positions (if you know the coordinates):**
 ```bash
 # Format: x,y,width,height for each eye separated by semicolon
-python3 desktop_flip_puzzle.py -c -e eyes --eye-pos '120,120,100,70;330,96,120,80'
+python3 animate.py-c -e eyes --eye-pos '120,120,100,70;330,96,120,80'
 ```
 
 Requirements:
@@ -208,7 +208,7 @@ The hidden effect removes objects from the image using OpenCV's inpainting algor
 
 **First time - Select and save regions:**
 ```bash
-python3 desktop_flip_puzzle.py -c -e hidden --select-objects
+python3 animate.py-c -e hidden --select-objects
 ```
 
 This opens an interactive polygon selector where you can:
@@ -222,7 +222,7 @@ Your selections are saved to `~/.config/desktop_animation_tool/hidden.cfg`
 
 **Subsequent runs - Use saved config:**
 ```bash
-python3 desktop_flip_puzzle.py -c -e hidden
+python3 animate.py-c -e hidden
 ```
 
 **How it works:**
@@ -241,14 +241,14 @@ The clone effect replaces selected areas with content from another region you sp
 
 **First time - Select and save regions:**
 ```bash
-python3 desktop_flip_puzzle.py -c -e clone --select-objects
+python3 animate.py-c -e clone --select-objects
 ```
 
 Your selections are saved to `~/.config/desktop_animation_tool/hidden.cfg`
 
 **Subsequent runs - Use saved config:**
 ```bash
-python3 desktop_flip_puzzle.py -c -e clone
+python3 animate.py-c -e clone
 ```
 
 **How it works:**
